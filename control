@@ -1,6 +1,6 @@
 Package: com.n3d1117.xnotforme
 Name: XNotForMe
-Version: 0.0.1
+Version: 0.0.2
 Architecture: iphoneos-arm
 Description: iOS tweak to completely remove the "For You" tab in X/Twitter
 Maintainer: Edoardo
