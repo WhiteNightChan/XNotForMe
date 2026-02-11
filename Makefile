@@ -9,7 +9,7 @@ DISPLAY_NAME = Twitter
 BUNDLE_ID = com.atebits.Tweetie2
 INSTALL_TARGET_PROCESSES = Twitter
 
-XNotForMe_FILES = Tweak.xm
+XNotForMe_FILES = Tweak.x
 XNotForMe_IPA = tmp/Payload/Twitter.app
 XNotForMe_CFLAGS = -fobjc-arc -Wno-deprecated-declarations -Wno-nullability-completeness -Wno-unused-function -Wno-unused-property-ivar -Wno-error
 XNotForMe_FRAMEWORKS = UIKit Foundation AVFoundation AVKit CoreMotion GameController VideoToolbox Accelerate CoreMedia CoreImage CoreGraphics ImageIO Photos CoreServices SystemConfiguration SafariServices Security QuartzCore WebKit SceneKit
