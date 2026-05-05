@@ -16,3 +16,6 @@ You can compile and bundle the tweak yourself.
 
 ## Screenshot
 <img src="https://github.com/user-attachments/assets/f2cd2b49-7a9d-46ad-88e6-a05ce89a6576" width="300">
+
+## See also
+- https://github.com/n3d1117/InstaSane
