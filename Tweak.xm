@@ -1,54 +1,40 @@
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface TFNScrollingSegmentedViewController : UIViewController
-- (id)parentViewController;
-@end
-
 %hook TFNScrollingSegmentedViewController
-
--(NSInteger)pagingViewController:(id)arg1 numberOfPagesInSection:(id)arg2 { 
-	if([[self.parentViewController class] isEqual:NSClassFromString(@"THFHomeTimelineContainerViewController")]) {
-		return 1; 
-	}
-	return %orig;
+- (id)initWithDataSource:(id)dataSource delegate:(id)delegate externalLabelBar:(UIView *)externalLabelBar addLabelBarToNavigationBarBlur:(BOOL)addLabelBarToNavigationBarBlur useAlternateBackgroundColor:(BOOL)useAlternateBackgroundColor {
+    BOOL home = [dataSource isKindOfClass:NSClassFromString(@"_TtC32TwitterHomeFeatureImplementation35HomeTimelineContainerViewController")];
+    id result = %orig(dataSource, delegate, externalLabelBar, home ? NO : addLabelBarToNavigationBarBlur, useAlternateBackgroundColor);
+    return result;
 }
-
--(NSInteger)selectedIndex { 
-	if([[self.parentViewController class] isEqual:NSClassFromString(@"THFHomeTimelineContainerViewController")]) {
-		return 1; 
-	}
-	return %orig;
-}
-
--(NSInteger)initialSelectedIndex { 
-	if([[self.parentViewController class] isEqual:NSClassFromString(@"THFHomeTimelineContainerViewController")]) {
-		return 1; 
-	}
-	return %orig;
-}
-
--(id)pagingViewController:(id)arg1 viewControllerAtIndexPath:(id)arg2 {
-	if([[self.parentViewController class] isEqual:NSClassFromString(@"THFHomeTimelineContainerViewController")]) {
-		return %orig(arg1, [NSIndexPath indexPathForRow:1 inSection:0]);
-	}
-	return %orig;
-}
-
-%end
-
-@interface TFNScrollingHorizontalLabelView
-- (id)delegate;
-@end
-
-%hook TFNScrollingHorizontalLabelView
-- (void)layoutSubviews {
-	if([[self.delegate class] isEqual:NSClassFromString(@"TFNScrollingSegmentedViewController")]) {
-		TFNScrollingSegmentedViewController *segmentedController = (TFNScrollingSegmentedViewController *)self.delegate;
-        if ([[segmentedController.parentViewController class] isEqual:NSClassFromString(@"THFHomeTimelineContainerViewController")]) {
+- (void)setLabelBarHideMode:(NSInteger)mode {
+    for (id parent = self; parent; parent = [parent parentViewController]) {
+        if ([parent isKindOfClass:NSClassFromString(@"_TtC32TwitterHomeFeatureImplementation35HomeTimelineContainerViewController")] && mode == 0) {
+            %orig(1);
             return;
         }
-	}
-	%orig;
+    }
+    %orig;
+}
+%end
+
+%hook _TtC32TwitterHomeFeatureImplementation35HomeTimelineContainerViewController
+- (NSInteger)numberOfEntriesForSegmentedViewController:(id)controller {
+    return MIN(%orig, 1);
+}
+- (UIViewController *)segmentedViewController:(id)controller viewControllerAtIndex:(NSInteger)index {
+    return %orig(controller, index ?: 1);
+}
+%end
+
+%hook THFURTHomeTimelineStream
+- (void)setVisibleScrollPositionState:(id)state {
+    if (state)
+        %orig;
+}
+%end
+
+%hook TFNTwitterAccount
+- (NSInteger)restartFromTopNavigationMinBackgroundMinutes {
+    return -1;
 }
 %end

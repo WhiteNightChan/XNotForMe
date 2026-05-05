@@ -6,8 +6,13 @@ The only timeline you need is the chronological one, with posts only from people
 
 Works well for me with X v10.3.2, when also combined with [BHTwitter](https://github.com/BandarHL/BHTwitter) v4.0 to remove ads and other annoyances.
 
+**EDIT:** Updated May 2026 for X v11.86.1. Changes:
+- Properly hide the top bar empty space under the logo
+- Preserve scroll position across launches
+  - For some _insane_ reason this feature was removed in the latest versions
+
 ## Installation
-You can compile and bundle the tweak yourself, or download a combined `.ipa` in [releases](https://github.com/n3d1117/XNotForMe/releases) which includes this tweak and BHTwitter.
+You can compile and bundle the tweak yourself.
 
 ## Screenshot
-<img src="https://github.com/n3d1117/XNotForMe/assets/11541888/95a0203d-e079-438a-ab69-e2f3a37f43ea" width="300">
+<img src="https://github.com/user-attachments/assets/f2cd2b49-7a9d-46ad-88e6-a05ce89a6576" width="300">
