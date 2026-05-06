@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import <float.h>
 
 %hook TFNScrollingSegmentedViewController
 - (id)initWithDataSource:(id)dataSource delegate:(id)delegate externalLabelBar:(UIView *)externalLabelBar addLabelBarToNavigationBarBlur:(BOOL)addLabelBarToNavigationBarBlur useAlternateBackgroundColor:(BOOL)useAlternateBackgroundColor {
@@ -24,6 +25,15 @@
 - (UIViewController *)segmentedViewController:(id)controller viewControllerAtIndex:(NSInteger)index {
     return %orig(controller, index ?: 1);
 }
+- (NSString *)segmentedViewController:(id)controller titleAtIndex:(NSInteger)index {
+    return %orig(controller, index ?: 1);
+}
+- (NSAttributedString *)segmentedViewController:(id)controller attributedTitleAtIndex:(NSInteger)index {
+    return %orig(controller, index ?: 1);
+}
+- (NSString *)segmentedViewController:(id)controller accessibilityLabelAtIndex:(NSInteger)index {
+    return %orig(controller, index ?: 1);
+}
 %end
 
 %hook THFURTHomeTimelineStream
@@ -36,5 +46,11 @@
 %hook TFNTwitterAccount
 - (NSInteger)restartFromTopNavigationMinBackgroundMinutes {
     return -1;
+}
+%end
+
+%hook TwitterHomeFeatures
+- (double)homeTimelineForegroundRefreshMinBackgroundSeconds {
+    return DBL_MAX;
 }
 %end
